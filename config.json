@@ -1,0 +1,5 @@
+﻿{
+    "connectionString": "mongodb+srv://user123:Benjamin@cluster0.e6oij.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    "secret": "ADGdaegoiylg;kDGndliD"
+}
+
