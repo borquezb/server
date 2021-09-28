@@ -5,6 +5,7 @@ const schema = new Schema({
     number: { type: Number, unique: true, required: true },
     createdDate: { type: Date, default: Date.now },
     balance: { type: Number},
+    name: { type: String},
     user: {
         type: Schema.Types.ObjectID,
         ref: "User"

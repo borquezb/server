@@ -30,15 +30,14 @@ async function create(portfolioParam) {
 }
 
 async function update(id, PortfolioParam) {
-    const Portfolio = await Portfolio.findById(id);
-
+    const portfolio = await Portfolio.findById(id);
     // validate
-    if (!Portfolio) throw 'Portfolio not found';
+    if (!portfolio) throw 'Portfolio not found';
 
     // copy PortfolioParam properties to Portfolio
-    Object.assign(Portfolio, PortfolioParam);
+    Object.assign(portfolio, PortfolioParam);
 
-    await Portfolio.save();
+    await portfolio.save();
 }
 
 async function _delete(id) {
