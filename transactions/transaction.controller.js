@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const portfolioService = require('./portfolio.service');
+const transactionService = require('./transaction.service');
 
 // routes
 router.get('/', getAll);
@@ -9,41 +9,47 @@ router.get('/current', getCurrent);
 router.get('/:id', getById);
 router.put('/:id', update);
 router.delete('/:id', _delete);
+router.get('/portfolio/:id', getByPortfolio);
 
 module.exports = router;
 
 function create(req, res, next) {
-    portfolioService.create(req.body)
+    transactionService.create(req.body)
         .then(() => res.json({}))
         .catch(err => next(err));
 }
 function getAll(req, res, next) {
-    portfolioService.getAll()
-        .then(portfolios => res.json(portfolios))
+    transactionService.getAll()
+        .then(transactions => res.json(transactions))
         .catch(err => next(err));
-    portfolioService.updateBalance()
 }
 
 function getCurrent(req, res, next) {
-    portfolioService.getById(req.portfolio.sub)
-        .then(portfolio => portfolio ? res.json(portfolio) : res.sendStatus(404))
+    transactionService.getById(req.transaction.sub)
+        .then(transaction => transaction ? res.json(transaction) : res.sendStatus(404))
         .catch(err => next(err));
 }
 
 function getById(req, res, next) {
-    portfolioService.getById(req.params.id)
-        .then(portfolio => portfolio ? res.json(portfolio) : res.sendStatus(404))
+    transactionService.getById(req.params.id)
+        .then(transaction => transaction ? res.json(transaction) : res.sendStatus(404))
         .catch(err => next(err));
 }
 
 function update(req, res, next) {
-    portfolioService.update(req.params.id, req.body)
+    transactionService.update(req.params.id, req.body)
         .then(() => res.json({}))
         .catch(err => next(err));
 }
 
 function _delete(req, res, next) {
-    portfolioService.delete(req.params.id)
+    transactionService.delete(req.params.id)
         .then(() => res.json({}))
+        .catch(err => next(err));
+}
+
+function getByPortfolio(req, res, next) {
+    transactionService.getAllByPortfolio(req.params.id)
+        .then(transactions => res.json(transactions))
         .catch(err => next(err));
 }
